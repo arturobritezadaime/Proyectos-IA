@@ -1,4 +1,3 @@
-
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
@@ -10,8 +9,8 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 
 # Asegúrate de que la API Key se ha cargado correctamente
-if not api_key:
-    raise ValueError("API_KEY no encontrada en las variables de entorno.")
+if not api_key or not api_key.strip():
+    raise ValueError("API_KEY no encontrada o vacía en las variables de entorno.")
 
 genai.configure(api_key=api_key)
 
@@ -38,7 +37,7 @@ for k, v in MODELOS.items():
 
 # Elegir modelo
 try:
-    modelo_elegido = int(input("Elegí un número de modelo: "))
+    modelo_elegido = int(input("Elegí un número de modelo: ").strip())
     modelo_info = MODELOS.get(modelo_elegido)
 
     if not modelo_info:
