@@ -2,10 +2,13 @@ from config import cargar_api_key
 from modelos import obtener_modelos, mostrar_modelos
 from entrada_usuario import seleccionar_modelo, obtener_prompt
 from generador import generar_contenido
+from rich.console import Console
 
 # ================================
 # 🔹 Función principal
 # ================================
+
+console = Console()
 
 def main():
     try:
@@ -20,11 +23,11 @@ def main():
         prompt = obtener_prompt()
         respuesta = generar_contenido(modelo_info["id"], prompt)
 
-        print("\n📄 Respuesta del modelo:\n")
-        print(respuesta)
+        console.print("\n📄 [bold green]Respuesta del modelo:[/bold green]\n")
+        console.print(respuesta, style="white")
 
     except Exception as e:
-        print(f"\n⚠️ Error: {e}")
+        console.print(f"\n⚠️ [bold red]Error:[/bold red] {e}", style="red")
 
 
 # ================================

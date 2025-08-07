@@ -1,6 +1,10 @@
 # ================================
 # 🔹 Definición de modelos gratuitos
 # ================================
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
 
 def obtener_modelos():
     return {
@@ -42,9 +46,20 @@ def obtener_modelos():
 # ================================
 
 def mostrar_modelos(modelos):
-    print("\n📌 Modelos gratuitos disponibles:\n")
+    table = Table(title="📌 Modelos gratuitos disponibles", title_style="bold cyan")
+    table.add_column("N°", justify="center", style="bold yellow")
+    table.add_column("ID del modelo", style="white")
+    table.add_column("Uso", style="italic")
+    table.add_column("Calidad", style="green")
+    table.add_column("Destacado", style="magenta")
+
     for clave, datos in modelos.items():
-        print(f"{clave}. {datos['id']}")
-        print(f"   → Uso: {datos['uso']}")
-        print(f"   → Calidad: {datos['calidad']}")
-        print(f"   → Destacado: {datos['característica']}\n")
+        table.add_row(
+            str(clave),
+            datos["id"],
+            datos["uso"],
+            datos["calidad"],
+            datos["característica"]
+        )
+
+    console.print(table)
