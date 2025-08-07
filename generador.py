@@ -6,10 +6,10 @@ import time
 console = Console()
 
 # ================================
-# 🔹 Generar contenido con modelo
+# 🔹 Generar contenido con historial (modo conversacional)
 # ================================
 
-def generar_contenido(modelo_id, prompt):
+def generar_contenido(modelo_id, historial_conversacion):
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -19,7 +19,7 @@ def generar_contenido(modelo_id, prompt):
         time.sleep(1.5)  # Simula carga
 
         modelo = genai.GenerativeModel(modelo_id)
-        respuesta = modelo.generate_content(prompt)
+        respuesta = modelo.generate_content(historial_conversacion)
 
         progress.update(task, description="✅ Contenido generado")
         time.sleep(0.3)
