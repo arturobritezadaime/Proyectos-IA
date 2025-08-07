@@ -3,6 +3,8 @@ from modelos import obtener_modelos, mostrar_modelos
 from entrada_usuario import seleccionar_modelo
 from generador import generar_contenido
 from rich.console import Console
+import csv
+from docx import Document
 
 console = Console()
 
@@ -31,20 +33,47 @@ def main():
                 console.print("👋 [bold yellow]Fin de la conversación.[/bold yellow]")
                 break
 
-            # Agregar mensaje del usuario al historial
             historial_conversacion.append({"role": "user", "parts": [prompt]})
-
-            # Obtener respuesta del modelo
             respuesta = generar_contenido(modelo_id, historial_conversacion)
-
-            # Mostrar respuesta
             console.print(f"\n🤖 [bold green]Modelo:[/bold green] {respuesta}\n")
-
-            # Agregar respuesta del modelo al historial
             historial_conversacion.append({"role": "model", "parts": [respuesta]})
 
     except Exception as e:
         console.print(f"\n⚠️ [bold red]Error:[/bold red] {e}", style="red")
+
+    # Guardar conversación si hay historial
+    if historial_conversacion:
+        guardar = input("\n💾 ¿Querés guardar la conversación? (sí/no): ").strip().lower()
+        if guardar in ["sí", "si", "s", "yes", "y"]:
+            formato = input("📂 Elegí formato (txt, docx, csv): ").strip().lower()
+            formatos_validos = ["txt", "docx", "csv"]
+
+            if formato not in formatos_validos:
+                console.print(f"\n⚠️ [yellow]Formato '{formato}' no reconocido. Se guardará en 'txt' por defecto.[/yellow]")
+                formato = "txt"
+
+            nombre_archivo = f"conversacion.{formato}"
+
+            if formato == "txt":
+                with open(nombre_archivo, "w", encoding="utf-8") as f:
+                    for turno in historial_conversacion:
+                        f.write(f"{turno['role'].capitalize()}: {turno['parts'][0]}\n\n")
+
+            elif formato == "docx":
+                doc = Document()
+                doc.add_heading('Conversación con Gemini', level=1)
+                for turno in historial_conversacion:
+                    doc.add_paragraph(f"{turno['role'].capitalize()}: {turno['parts'][0]}")
+                doc.save(nombre_archivo)
+
+            elif formato == "csv":
+                with open(nombre_archivo, "w", newline="", encoding="utf-8") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(["Rol", "Contenido"])
+                    for turno in historial_conversacion:
+                        writer.writerow([turno["role"], turno["parts"][0]])
+
+            console.print(f"\n✅ [green]Conversación guardada como '{nombre_archivo}'[/green]")
 
 
 # ================================
