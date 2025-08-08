@@ -16,7 +16,7 @@ def generar_contenido(modelo_id, historial_conversacion):
         transient=True,
     ) as progress:
         task = progress.add_task("🧠 Generando contenido...", total=None)
-        time.sleep(1.5)  # Simula carga
+        time.sleep(1)  # Simula carga
 
         modelo = genai.GenerativeModel(modelo_id)
         respuesta = modelo.generate_content(historial_conversacion)

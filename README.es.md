@@ -4,11 +4,12 @@ Este proyecto permite interactuar con la API de Google Gemini desde tu terminal 
 
 ## 🚀 Funcionalidades
 
-- ✅ Consultar modelos disponibles (formato tabla con Rich).
-- 📝 Enviar prompts simples desde la consola.
-- ⏳ Ver barra de progreso mientras se genera contenido.
-- 📄 Resultados con formato elegante y colores.
-- 📦 Estructura modular con buenas prácticas.
+- Modo Conversacional: Interactúa de forma continua con el modelo, manteniendo el historial de la conversación.
+- Selección de Modelos: Elige entre una lista de modelos gratuitos disponibles.
+- Visualización mejorada: Consulta los modelos en un formato de tabla claro con la librería rich.
+- Barra de Progreso: Muestra un spinner mientras el modelo genera la respuesta.
+- Guardar Conversación: Al finalizar, tienes la opción de guardar el historial completo de la conversación en formato .txt, .docx o .csv.
+- Manejo de errores: El programa gestiona errores, como una API key faltante o una selección de modelo inválida.
 
 ## 📁 Estructura del proyecto
 
@@ -21,7 +22,9 @@ proyecto_gemini_terminal/
 ├── modelos.py
 ├── proyect_gemini.py
 ├── requirements.txt
-└── README.md
+├── README.md
+├── README.es.md
+└── README.en.md
 ```
 
 ## 🛠️ Requisitos
@@ -59,7 +62,7 @@ API_KEY=tu_api_key_de_google
 python proyect_gemini.py
 ```
 
-Y seguí las instrucciones en pantalla para elegir el modelo, escribir tu prompt y ver la respuesta.
+El programa te guiará para seleccionar un modelo y empezar la conversación. Escribe "salir" o "exit" o "quit" para terminar el chat. Al finalizar, te preguntará si deseas guardar el historial.
 
 ## 📷 Captura de consola
 
@@ -80,8 +83,9 @@ Y seguí las instrucciones en pantalla para elegir el modelo, escribir tu prompt
 - [google-generativeai](https://pypi.org/project/google-generativeai/)
 - [rich](https://pypi.org/project/rich/)
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
+- python-docx: Para guardar el historial en formato .docx.
 
 ## 🧠 Autor
 
 César Arturo Britez Adaime  
-[@TuGitHub](https://github.com/arturobritezadaime)
+[@Git](https://github.com/arturobritezadaime)
